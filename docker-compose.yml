@@ -1,0 +1,26 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: insurance-backend
+    networks:
+      - insurance-network
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: insurance-frontend
+    environment:
+      API_URL: http://backend:8000
+    depends_on:
+      - backend
+    ports:
+      - "8501:8501"
+    networks:
+      - insurance-network
+
+networks:
+  insurance-network:
+    driver: bridge
