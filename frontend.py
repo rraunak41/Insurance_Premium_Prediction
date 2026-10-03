@@ -1,7 +1,10 @@
+import os
 import streamlit as st
 import requests
 
-API_URL = "http://localhost:8000/predict" 
+# Use Docker service-to-service URL when API_URL is provided;
+# otherwise default to the local FastAPI server.
+API_URL = os.getenv("API_URL", "http://localhost:8000") + "/predict"
 
 st.title("Insurance Premium Category Predictor")
 
